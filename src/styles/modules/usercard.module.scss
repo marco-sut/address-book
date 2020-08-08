@@ -1,0 +1,20 @@
+@import "../variables";
+
+.user-card {
+  background-color: $user-card-bg;
+  padding: 2.5em;
+  border-radius: 4px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+
+  &__thumb-wrapper, &__caption, &__name, &__email, &__cta {
+    text-align: center;
+  }
+
+  &__name, &__email, &__cta {
+    display: block;
+  }
+
+  &__cta {
+    margin-top: 1em;
+  }
+}

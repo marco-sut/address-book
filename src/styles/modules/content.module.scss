@@ -1,0 +1,14 @@
+@import '../variables';
+
+.content {
+  background-color: $light-grey;
+  padding: 2em 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__inner {
+    width: 100%;
+    max-width: 1024px;
+  }
+}

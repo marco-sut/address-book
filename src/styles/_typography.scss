@@ -1,0 +1,15 @@
+html {
+  font-size: $font-size-base;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-base;
+  font-size: 1rem;
+  color: $body-text-color;
+  font-weight: normal;
+  line-height: $line-height-base;
+  background-color: $body-bg;
+  -webkit-text-size-adjust: 100%;
+}

@@ -1,0 +1,27 @@
+@import '../variables';
+
+.user-detail {
+  display: flex;
+
+  &__col {
+    flex: 1;
+
+    &:first-of-type {
+      flex: 0 0 250px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        text-align: left;
+        width: 50%;
+        vertical-align: top;
+        padding: 1em;
+        border-bottom: 2px solid darken($light-grey, $amount: 20%);
+      }
+    }
+  }
+}

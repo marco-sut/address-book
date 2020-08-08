@@ -1,0 +1,12 @@
+@import '../variables';
+@import '../mixins';
+
+.list {
+  @include mq('desktop-up') {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 15px;
+    row-gap: 15px;
+  }
+}
