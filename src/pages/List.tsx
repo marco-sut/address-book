@@ -5,38 +5,58 @@ import { StateContext, Action, ActionTypes } from '../lib/context/State';
 import { State } from '../model/State';
 import UserApi from '../lib/api/UserApi';
 import Loader from '../lib/ui/Loader';
+import ErrorBoundary from '../lib/ErrorBoundary';
+import ErrorMessage from '../lib/ui/ErrorMessage';
 
 const List = () => {
   const [data, func] = useContext(StateContext);
-  const { loading, users } = data as State;
+  const { loading, error, users } = data as State;
   const dispatch = func as (action: Action) => {};
 
   useEffect(() => {
     const fetchData = async () => {
-      const users = await UserApi.loadUser();
+      try {
+        const users = await UserApi.loadUser();
 
-      dispatch({
-        type: ActionTypes.LoadUsers,
-        data: { users }
-      });
+        dispatch({
+          type: ActionTypes.LoadedUsers,
+          data: { users }
+        });
+      } catch (err) {
+        dispatch({
+          type: ActionTypes.LoadError,
+          data: { users: [] }
+        });
+      }
     }
 
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, users]);
 
   return (
     <>
-      {loading ? <Loader /> : (
-        <article className={styles.list}>
-          {
-            users.map((user) => {
-              return <UserCard key={user.id} id={user.id} name={user.name} email={user.email} />
-            })
-          }
-        </article>
-      )}
+      {loading
+        ? <Loader />
+        : error
+          ? <ErrorMessage text='An Error occurred while calling the API' />
+          : (
+            <article className={styles.list}>
+              {
+                users.map((user) => {
+                  return <UserCard key={user.id} id={user.id} name={user.name} email={user.email} />
+                })
+              }
+            </article>
+          )}
     </>
   );
 };
 
-export default List;
+export default function ListErrorBoundary() {
+  return (
+    // Higher order component to track rendering Errors
+    <ErrorBoundary>
+      <List />
+    </ErrorBoundary>
+  );
+}

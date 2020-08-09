@@ -3,9 +3,9 @@ import { State } from '../../model/State';
 import { User } from '../../model/User';
 
 export enum ActionTypes {
-  LoadUsers = 'loadUsers',
-  LoadCurrentUser = 'loadCurrentUser',
-  LoadCurrentUserById = 'loadCurrentUserById',
+  LoadedUsers = 'loadedUsers',
+  LoadedCurrentUser = 'loadedCurrentUser',
+  LoadedCurrentUserById = 'loadedCurrentUserById',
   LoadError = 'loadError'
 }
 
@@ -43,21 +43,25 @@ export const initialState: State = {
 
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case ActionTypes.LoadUsers:
+    case ActionTypes.LoadedUsers:
       return {
         ...state,
         loading: false,
         error: false,
         users: action.data.users
       };
-    case ActionTypes.LoadCurrentUser:
+    case ActionTypes.LoadedCurrentUser:
       return {
         ...state,
+        loading: false,
+        error: false,
         currentUser: action.data.users.find((user) => user.id === action.data.selectedId) || emptyCurrentUser
       };
-    case ActionTypes.LoadCurrentUserById:
+    case ActionTypes.LoadedCurrentUserById:
       return {
         ...state,
+        loading: false,
+        error: false,
         currentUser: action.data.currentUser || emptyCurrentUser
       };
     case ActionTypes.LoadError:
