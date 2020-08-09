@@ -11,6 +11,7 @@ import Content from './lib/ui/Content';
 import List from './pages/List';
 import Details from './pages/Details';
 import { StateProvider, initialState, reducer } from './lib/context/State';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/details/:id">
               <Details />
             </Route>
+            <Route path='*' exact={true} component={NotFound} />
           </Switch>
         </Content>
       </StateProvider>
