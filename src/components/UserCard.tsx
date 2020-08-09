@@ -3,17 +3,17 @@ import styles from '../styles/modules/usercard.module.scss';
 import CtaButton from '../lib/ui/CtaButton';
 import { Link } from 'react-router-dom';
 
-const UserCard = () => {
+const UserCard = ({ id, name, email }: {id: number, name: string, email: string}) => {
   return (
     <figure className={styles['user-card']}>
       <div className={styles['user-card__thumb-wrapper']}>
-        <img height="60px" src="/assets/person.svg" alt="Clementine Bauch" />
+        <img height="60px" src="/assets/person.svg" alt={name} />
       </div>
       <figcaption className={styles["user-card__caption"]}>
-        <strong className={styles['user-card__name']}>Clementine Bauch</strong>
-        <span className={styles['user-card__email']}>Nathan@yesenia.net</span>
+        <strong className={styles['user-card__name']}>{name}</strong>
+        <span className={styles['user-card__email']}>{email}</span>
         <div className={styles['user-card__cta']}>
-          <Link to="/details/1000">
+          <Link to={`/details/${id}`}>
             <CtaButton text="See Details" />
           </Link>
         </div>
