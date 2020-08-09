@@ -19,6 +19,10 @@ const UserDetail = ({ id }: { id: number }) => {
       });
     } else {
       const fetchData = async () => {
+        dispatch({
+          type: ActionTypes.LoadingUsers,
+          data: { users: [] }
+        });
         try {
           const currentUser = await UserApi.getUserById(id);
 

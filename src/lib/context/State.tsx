@@ -3,6 +3,7 @@ import { State } from '../../model/State';
 import { User } from '../../model/User';
 
 export enum ActionTypes {
+  LoadingUsers = 'LoadingUsers',
   LoadedUsers = 'loadedUsers',
   LoadedCurrentUser = 'loadedCurrentUser',
   LoadedCurrentUserById = 'loadedCurrentUserById',
@@ -35,7 +36,7 @@ export const emptyCurrentUser = {
 }
 
 export const initialState: State = {
-  loading: true,
+  loading: false,
   error: false,
   users: [],
   currentUser: emptyCurrentUser
@@ -43,6 +44,11 @@ export const initialState: State = {
 
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
+    case ActionTypes.LoadingUsers:
+      return {
+        ...state,
+        loading: true,
+      };
     case ActionTypes.LoadedUsers:
       return {
         ...state,

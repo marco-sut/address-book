@@ -15,6 +15,10 @@ const List = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      dispatch({
+        type: ActionTypes.LoadingUsers,
+        data: { users: [] }
+      });
       try {
         const users = await UserApi.loadUser();
 
@@ -31,7 +35,7 @@ const List = () => {
     }
 
     fetchData();
-  }, [dispatch, users]);
+  }, [dispatch]);
 
   return (
     <>
