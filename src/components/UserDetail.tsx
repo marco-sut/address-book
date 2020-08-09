@@ -11,6 +11,26 @@ const UserDetail = ({ id }: { id: number }) => {
   const { users, currentUser, loading, error } = data as State;
   const dispatch = func as (action: Action) => {};
 
+  const fetchData = async () => {
+    dispatch({
+      type: ActionTypes.LoadingUsers,
+      data: { users: [] }
+    });
+    try {
+      const currentUser = await UserApi.getUserById(id);
+
+      dispatch({
+        type: ActionTypes.LoadedCurrentUserById,
+        data: { users: [], currentUser }
+      });
+    } catch (err) {
+      dispatch({
+        type: ActionTypes.LoadError,
+        data: { users: [] }
+      });
+    }
+  }
+
   useEffect(() => {
     if (users.length) {
       dispatch({
@@ -18,26 +38,6 @@ const UserDetail = ({ id }: { id: number }) => {
         data: { users, selectedId: Number(id) }
       });
     } else {
-      const fetchData = async () => {
-        dispatch({
-          type: ActionTypes.LoadingUsers,
-          data: { users: [] }
-        });
-        try {
-          const currentUser = await UserApi.getUserById(id);
-
-          dispatch({
-            type: ActionTypes.LoadedCurrentUserById,
-            data: { users: [], currentUser }
-          });
-        } catch (err) {
-          dispatch({
-            type: ActionTypes.LoadError,
-            data: { users: [] }
-          });
-        }
-      }
-
       fetchData();
     }
 

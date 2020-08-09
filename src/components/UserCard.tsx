@@ -14,7 +14,7 @@ const UserCard = ({ id, name, email }: {id: number, name: string, email: string}
         <span className={styles['user-card__email']}>{email}</span>
         <div className={styles['user-card__cta']}>
           <Link to={`/details/${id}`}>
-            <CtaButton text="See Details" />
+            <CtaButton text="Show Details" />
           </Link>
         </div>
       </figcaption>

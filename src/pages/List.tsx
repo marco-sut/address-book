@@ -13,29 +13,30 @@ const List = () => {
   const { loading, error, users } = data as State;
   const dispatch = func as (action: Action) => {};
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const fetchData = async () => {
+    dispatch({
+      type: ActionTypes.LoadingUsers,
+      data: { users: [] }
+    });
+    try {
+      const users = await UserApi.loadUser();
+
       dispatch({
-        type: ActionTypes.LoadingUsers,
+        type: ActionTypes.LoadedUsers,
+        data: { users }
+      });
+    } catch (err) {
+      dispatch({
+        type: ActionTypes.LoadError,
         data: { users: [] }
       });
-      try {
-        const users = await UserApi.loadUser();
-
-        dispatch({
-          type: ActionTypes.LoadedUsers,
-          data: { users }
-        });
-      } catch (err) {
-        dispatch({
-          type: ActionTypes.LoadError,
-          data: { users: [] }
-        });
-      }
     }
+  }
 
+  useEffect(() => {
     fetchData();
-  }, [dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
